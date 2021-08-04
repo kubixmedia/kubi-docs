@@ -1,0 +1,18 @@
+{
+  "name": "Kubi Docs",
+  "short_name": "Kubi",
+  "description": "A documentation website for Kubi",
+  "lang": "en-GB",
+  "scope": "./",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "theme_color": "#DD3E7D",
+  "icons": [
+    {
+      "src": "./assets/196.png",
+      "sizes": "196x196"
+    }
+  ],
+  "background_color": "#23262A"
+}

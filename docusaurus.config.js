@@ -116,5 +116,35 @@ module.exports = {
   customFields: {
     cloud_name: 'kubix-media-ltd',
     upload_preset: 'YOUR_UPLOAD_PRESET' //Create an unsigned upload preset and update this
-  }
+  },
+  plugins: [
+    [
+      '@docusaurus/plugin-pwa',
+      {
+        debug: true,
+        offlineModeActivationStrategies: [
+          'appInstalled',
+          'standalone',
+          'queryString',
+        ],
+        pwaHead: [
+          {
+            tagName: 'link',
+            rel: 'icon',
+            href: '/img/196.png',
+          },
+          {
+            tagName: 'link',
+            rel: 'manifest',
+            href: '/manifest.json', // your PWA manifest
+          },
+          {
+            tagName: 'meta',
+            name: 'theme-color',
+            content: '#dd3e7d',
+          },
+        ],
+      },
+    ],
+  ],
 };
