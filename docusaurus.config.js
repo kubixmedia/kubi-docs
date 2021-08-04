@@ -27,8 +27,7 @@ module.exports = {
           label: 'Wiki',
         },
         {
-          type: 'doc',
-          docId: 'changelog',
+          to: '/changelog',
           position: 'right',
           label: 'Changelog',
         },
@@ -83,7 +82,7 @@ module.exports = {
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
+      copyright: `Copyright © ${new Date().getFullYear()} Kubix Media Ltd. Built with Docusaurus.`,
     },
     prism: {
       theme: lightCodeTheme,
