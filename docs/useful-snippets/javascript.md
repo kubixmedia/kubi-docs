@@ -1,0 +1,283 @@
+---
+sidebar_position: 3
+title: JavaScript Snippets
+---
+
+## Shopify CDN Image URL Generator
+These functions use JavaScript to take a raw image URL and create the requested size URL with several parameters available. It exactly matches Liquid's `image_url` options so read Shopify's documentation on [image_url](https://shopify.dev/api/liquid/filters/url-filters#image_url) for more information.
+
+:::info
+Where you see `export const...`, these are exported functions. These typically go in a `helpers.js` file and then imported wherever you need them with the following:
+```js
+import {someFunctionConst} from 'helpers.js';
+```
+:::
+
+```js
+/**
+ * Removes the protocol from a URL
+ *
+ * @param src
+ * @param size
+ * @returns {*}
+ */
+const removeProtocol = (path) => {
+  return path.replace(/http(s)?:/, '');
+};
+
+/**
+ * Adds a Shopify size attribute to a URL using the new image_url properties
+ * Read more: https://shopify.dev/api/liquid/filters/url-filters#image_url
+ *
+ * @param {string} src
+ * @param {ImageParams} params
+ */
+
+/**
+
+ * @typedef {object} ImageParams
+ * @property {number} width
+ * @property {number} height
+ * @property {string} crop
+ * @property {string} format
+ * @property {string} pad_color
+ * @returns {string}
+ */
+
+/**
+ * Usage:
+ * getSizedImageUrl(imageUrl, {width: 500, height: 100, crop: 'center', format: 'pjeg', pad_color: 'ff0000');
+ */
+
+export const getSizedImageUrl = (src, params = {}) => {
+  const validAttributes = {
+    width : null,
+    height : null,
+    crop : null,
+    format : null,
+    pad_color : null,
+  };
+  const url = new URL(src);
+
+  Object.entries(params).forEach(([ key, value ]) => {
+    if (key in validAttributes) {
+      url.searchParams.set(key, value);
+    } else {
+      throw new Error(`Given option is not valid: ${key}`);
+    }
+  });
+
+  const match = src.match(/\.(jpg|jpeg|gif|png|bmp|bitmap|tiff|tif)(\?v=\d+)?$/i);
+  if (match) {
+    return removeProtocol(url.toString());
+  } else {
+    throw new Error(`Valid image URL required, given: ${src}`);
+  }
+};
+```
+
+## Native Lazyloading Transitions
+This is a pretty powerful function. In the past, when lazyloading was done via a `lazyload.js` package, the package would typically add a new class to an image once it had been loaded, such as `.lazyload .lazyloaded` to create an animation effect (usually a fade-in transition). With the introduction of native lazyloading, these classes no longer exist, and so a new trick is needed.
+This function finds lazyloaded images with a class wrapper and adds it's own class.
+
+```html title="markup.html"
+<div class="container">
+  <div class="lazyimage">
+    <img src="https://images.unsplash.com/photo-1622495550744-dd25b569e6c0?ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" alt="" height="500" width="500" loading="lazy">
+  </div>
+</div>
+<div class="container">
+  <div class="lazyimage">
+    <img src="https://images.unsplash.com/photo-1625818851108-8421b3789e19?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1951&q=80" alt="" height="500" width="500" loading="lazy">
+  </div>
+</div>
+```
+
+```js title="lazyload.js"
+(() => {
+// if 'loading' supported
+if (!('loading' in HTMLImageElement.prototype) && !!(window.IntersectionObserver)) {
+  return;
+}
+
+const selectors = {
+  imgContainer : '.lazyimage',
+  lazyImg : 'img[loading="lazy"]',
+};
+
+const classes = {
+  imageLoaded : 'lazyimage--loaded',
+  imageError : 'lazyimage--error',
+  imageErrorShow : 'lazyimage--error-show',
+};
+
+const lazyImageLoad = (evt) => {
+  evt.currentTarget.parentNode.classList.add(classes.imageLoaded);
+};
+
+const lazyImageError = (evt) => {
+  const parent = evt.currentTarget.parentNode;
+  parent.classList.remove(classes.imageLoaded);
+  parent.classList.add(classes.imageError);
+  setTimeout(() => {
+    parent.classList.add(classes.imageErrorShow);
+  }, 60);
+};
+
+const lazyImages = document.querySelectorAll(`${selectors.imgContainer} ${selectors.lazyImg}`);
+
+let observer = new IntersectionObserver(
+    (entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.addEventListener('load', lazyImageLoad, false);
+          entry.target.addEventListener('error', lazyImageError, false);
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    {rootMargin : "0px 0px -40px 0px"});
+lazyImages.forEach(img => {observer.observe(img)});
+}();
+```
+
+```scss title="lazyload-styles.scss"
+.lazyimage {
+  position: relative;
+
+  img[loading="lazy"] {
+    opacity: 0;
+    transition: background 0.5s, opacity 0.5s, transform 0.5s;
+  }
+}
+
+.lazyimage--loaded {
+  img[loading="lazy"] {
+    opacity: 1;
+  }
+}
+
+.lazyimage--error img[loading="lazy"] {
+  opacity: 0;
+  transition: none;
+}
+
+.lazyimage--error::after {
+  content: "Image Not Found";
+  box-sizing: border-box;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1em;
+  background: #ff4;
+  color: #f00;
+  border: 0.5em dashed #f00;
+  transform: scale(0);
+  transition: transform 0.5s;
+}
+
+.lazyimage--error-show::after {
+  transform: scale(1);
+}
+```
+
+## Serialise Form Data
+Useful for when you want to submit forms via Ajax. Typically used for product forms. It takes the selected form values (variants, quantity, `line_item` properties etc) and serialises it to submit it.
+
+Behaves similarly to jQuery's [.serialize()](https://api.jquery.com/serialize/) function.
+
+```js
+/*!
+ * Serialize all form data into a SearchParams string
+ * (c) 2020 Chris Ferdinandi, MIT License, https://gomakethings.com
+ * @param  {Node}   form The form to serialize
+ * @return {String}      The serialized form data
+ */
+const serialize = function(form) {
+  let arr = [];
+  Array.prototype.slice.call(form.elements).forEach(function(field) {
+    if (!field.name || field.disabled || [ 'file', 'reset', 'submit', 'button' ].indexOf(field.type) > -1)
+      return;
+    if (field.type === 'select-multiple') {
+      Array.prototype.slice.call(field.options).forEach(function(option) {
+        if (!option.selected)
+          return;
+        arr.push(encodeURIComponent(field.name) + '=' + encodeURIComponent(option.value));
+      });
+      return;
+    }
+    if ([ 'checkbox', 'radio' ].indexOf(field.type) > -1 && !field.checked)
+      return;
+    arr.push(encodeURIComponent(field.name) + '=' + encodeURIComponent(field.value));
+  });
+  return arr.join('&');
+};
+```
+
+## Parse Query String Parameters
+
+Similar to the above, this function takes a string containing queries and returns the values.
+Works with URLs and form data.
+
+```js
+const queryString = "form_type=product&utf8=%E2%9C%93&options%5BColor%5D=Copper&options%5BSize%5D=Small&quantity=1&id=35561965486235"
+
+getQueryVariable(queryString, "id")
+// Returns: 35561965486235
+```
+
+```js
+function getQueryVariable(string, variable) {
+  const query = string.substring(1);
+  const vars = query.split("&");
+  for (let i = 0; i < vars.length; i++) {
+    const pair = vars[i].split("=");
+    if (pair[0] == variable) {
+      return pair[1];
+    }
+  }
+  return (false);
+}
+```
+
+## Browser Detection
+Detects which browser the user is using
+
+```js
+browser
+
+// Returns object
+{
+  "name": "chrome",
+  "version": 98,
+  "os": "mac",
+  "osVersion": 10.157,
+  "touch": false,
+  "mobile": false,
+  "_canUse": null
+}
+
+// Other usages:
+// Browser name detection
+if (browser.name == 'ie') {
+  document.body.addClass('is-ie');
+}
+
+// Browser feature detection
+if (!browser.canUse('object-fit')) {}
+
+// Browser mobile detection
+if (browser.mobile) {
+  document.body.addClass('is-mobile');
+}
+```
+
+```js
+var browser=function(){"use strict";var e={name:null,version:null,os:null,osVersion:null,touch:null,mobile:null,_canUse:null,canUse:function(n){e._canUse||(e._canUse=document.createElement("div"));var o=e._canUse.style,r=n.charAt(0).toUpperCase()+n.slice(1);return n in o||"Moz"+r in o||"Webkit"+r in o||"O"+r in o||"ms"+r in o},init:function(){var n,o,r,i,t=navigator.userAgent;for(n="other",o=0,r=[["firefox",/Firefox\/([0-9\.]+)/],["bb",/BlackBerry.+Version\/([0-9\.]+)/],["bb",/BB[0-9]+.+Version\/([0-9\.]+)/],["opera",/OPR\/([0-9\.]+)/],["opera",/Opera\/([0-9\.]+)/],["edge",/Edge\/([0-9\.]+)/],["safari",/Version\/([0-9\.]+).+Safari/],["chrome",/Chrome\/([0-9\.]+)/],["ie",/MSIE ([0-9]+)/],["ie",/Trident\/.+rv:([0-9]+)/]],i=0;i<r.length;i++)if(t.match(r[i][1])){n=r[i][0],o=parseFloat(RegExp.$1);break}for(e.name=n,e.version=o,n="other",o=0,r=[["ios",/([0-9_]+) like Mac OS X/,function(e){return e.replace("_",".").replace("_","")}],["ios",/CPU like Mac OS X/,function(e){return 0}],["wp",/Windows Phone ([0-9\.]+)/,null],["android",/Android ([0-9\.]+)/,null],["mac",/Macintosh.+Mac OS X ([0-9_]+)/,function(e){return e.replace("_",".").replace("_","")}],["windows",/Windows NT ([0-9\.]+)/,null],["bb",/BlackBerry.+Version\/([0-9\.]+)/,null],["bb",/BB[0-9]+.+Version\/([0-9\.]+)/,null],["linux",/Linux/,null],["bsd",/BSD/,null],["unix",/X11/,null]],i=0;i<r.length;i++)if(t.match(r[i][1])){n=r[i][0],o=parseFloat(r[i][2]?r[i][2](RegExp.$1):RegExp.$1);break}e.os=n,e.osVersion=o,e.touch="wp"==e.os?navigator.msMaxTouchPoints>0:!!("ontouchstart"in window),e.mobile="wp"==e.os||"android"==e.os||"ios"==e.os||"bb"==e.os}};return e.init(),e}();!function(e,n){"function"==typeof define&&define.amd?define([],n):"object"==typeof exports?module.exports=n():e.browser=n()}(this,function(){return browser});
+```

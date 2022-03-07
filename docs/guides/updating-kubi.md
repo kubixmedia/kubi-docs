@@ -26,4 +26,6 @@ When merging with your current Kubi project there may be some Git conflicts that
 git remote remove upstream
 ```
 
->Note: to better understand the updates that are made to Kubi, you can read the [Kubi changelog](https://github.com/kubixmedia/kubi/CHANGELOG.md) to view the list of updates for each release.
+:::info
+To better understand the updates that are made to Kubi, you can read the [Kubi changelog](https://github.com/kubixmedia/kubi/CHANGELOG.md) to view the list of updates for each release.
+:::

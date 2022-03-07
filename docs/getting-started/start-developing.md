@@ -10,6 +10,12 @@ Once you have setup your store and your Kubi project either manually or by using
 npm run
 ```
 
+:::tip
+You can also start Kubi by simply running `gulp`. For this, you will need to have Gulp installed **globally** on your system.
+
+`npm i -g gulp`
+:::
+
 This compiles your local theme files into a `dist` directory and luanches the BrowserSync localhost that will serve your files (i.e. Liquid, CSS and JavaScript) from your chosen port. By default it will be `https://localhost:3000` internal and `https://xxx.xxx.x.xx:3000/` external.
 
 <img src="https://user-images.githubusercontent.com/25429915/75773899-b2f95500-5d46-11ea-9e55-cde38da10698.gif" alt="Animated GIF of a Mac terminal running the Kubi start command yarn start" width="700"/><br/>

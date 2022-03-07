@@ -54,7 +54,9 @@ settings:
 
 The section schema still needs to be wrapped within the liquid tags but instead of JSON, YAML can be used. Like with files once you save it, Kubi will convert the YAML into a Shopify readable JSON format.
 
->**Note**: Kubi will only accept valid JSON for conversion. If there is an error within the JSON code, Kubi will throw an error. Keep in mind that Shopify doesn't validate JSON 100% but more beautifies it. Due to this many themes that published to stores have invalid JSON.
+:::info
+Kubi will only accept valid JSON for conversion. If there is an error within the JSON code, Kubi will throw an error. Keep in mind that Shopify doesn't validate JSON 100% but more beautifies it. Due to this many themes that published to stores have invalid JSON.
+:::
 
 ## Sprites
 Within the `src/images` folder there is a subdirectory of `spritesheets` this directory creates two different types of sprites `png` and `svg`. When adding images to the svg folder within spritesheets, this will create a new `icons.liquid` snippet that will hold all svg images within symbol formats. To call each symbol the include `svg-sprite.liquid` will need to be added via `{%- render 'svg-sprite' -%}`. This liquid snippet is created automatically when running `kubimini.sh`.

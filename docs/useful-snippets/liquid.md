@@ -3,9 +3,10 @@ sidebar_position: 1
 title: Liquid Snippets
 ---
 
+## SVG Sprites
 Renders a Liquid-powered SVG snippet that utilises Kubi's SVG optimisation.
 
-## Usage
+### Usage
 In your liquid template file, copy the following line:
 ```liquid
 {%- render 'svg-sprite', icon: 'arrow-up', class: 'icon icon--arrow', w: 100, h: 30, title: 'Go up', desc: 'Scroll to top' -%}
@@ -64,4 +65,62 @@ hidden: {Bool}   Applies aria-hidden attribute. Default is false.
     {%- endif -%}
     <use xlink:href="{{ icon | prepend: '#icon-' }}"></use>
 </svg>
+```
+
+## Developer Mode
+Useful for when working with both development and live themes, this will automatically reflect the `kubix.css/js` minification state.
+
+Enable the option on development themes, leave disabled on live/production themes
+### `settings_schema.json`
+```json
+{
+  "name": "Developer Mode",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Enable the site to use a development environment. Some settings will be changed in this mode and tracking will not be available! ** Do not activate on a live site, unless completely sure **"
+    },
+    {
+      "type": "checkbox",
+      "id": "devmode",
+      "label": "Enable Developer Mode"
+    }
+  ]
+}
+```
+
+### Liquid code
+```liquid
+{%- liquid
+  if settings.devmode
+    assign kubixStyles = 'kubix.css'
+    assign kubixScripts = 'kubix.js'
+  else
+    assign kubixStyles = 'kubix.min.css'
+    assign kubixScripts = 'kubix.min.js'
+  endif
+-%}
+
+{{ kubixStyles | asset_url | stylesheet_tag }}
+{{ kubixScripts | asset_url | script_tag }}
+```
+
+## Placeholder SVGs
+
+```liquid
+{% comment %} Collection Images {% endcomment %}
+{% capture collectionPlaceholder %}{% cycle 'collection-1', 'collection-2', 'collection-3', 'collection-4', 'collection-5', 'collection-6' %}{% endcapture %}
+{{ collectionPlaceholder | placeholder_svg_tag }}
+
+{% comment %} Product Images {% endcomment %}
+{% capture productPlaceholder %}{% cycle 'product-1', 'product-2', 'product-3', 'product-4', 'product-5', 'product-6' %}{% endcapture %}
+{{ productPlaceholder | placeholder_svg_tag }}
+
+{% comment %} Lifestyle Images {% endcomment %}
+{% capture lifestylePlaceholder %}{% cycle 'lifestyle-1', 'lifestyle-2' %}{% endcapture %}
+{{ lifestylePlaceholder | placeholder_svg_tag }}
+
+
+{% comment %} Others {% endcomment %}
+{{ 'image' | placeholder_svg_tag }}
 ```

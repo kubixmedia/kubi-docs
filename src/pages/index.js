@@ -15,14 +15,14 @@ function HomepageHeader() {
       <div className="container">
         <h1 className="hero__title">{siteConfig.title}</h1>
         <p className="hero__subtitle">{siteConfig.tagline}</p>
+        <div style={{width: '100px'}}>
         <CloudinaryContext
           cloudName={siteConfig.customFields.cloud_name}
           uploadPreset={siteConfig.customFields.cloud_name}
         >
-          <Image publicId="kubi_logo_default_icon">
-            <Transformation rawTransformation="w_150,c_scale,f_auto,dpr_auto" />
-          </Image>
+          <Image publicId="kubi_logo_default_icon.png" dpr="auto" responsive width="auto" crop="scale" secure="true" loading="lazy"  />
         </CloudinaryContext>
+        </div>
         <div>
         <p>Kubi is a command line tool for setting up a Shopify project, whether bespoke or theming in an opinionated way to. This is done by integrating Gulp, Theme Kit and Webpack. It is designed to assist your development workflow and speed up the process of developing, testing, and deploying themes to Shopify. It has taken inspiration from Shopify Slate but has applied more team related functionalities such as Git.</p>
 
@@ -41,6 +41,8 @@ export default function Home() {
     description="Description will go into a meta tag in <head />">
       <Head>
         <meta http-equiv="Accept-CH" content="DPR, Viewport-Width, Width" />
+        <meta name="cloudinary_cloud_name" content="kubix-media-ltd" />
+        <link rel="preconnect" href="https://res.cloudinary.com" crossOrigin />
       </Head>
       <HomepageHeader />
       <main>

@@ -6,15 +6,17 @@ sidebar_position: 3
 
 Now that you have a new Kubi project, you will need to make sure it's linked to your remote Shopify store by updating the **config.yml** file with your API credentials. This file will be automatically created and updated for you when running the [Kubi script](https://github.com/kubixmedia/kubi/wiki/2.Create-a-new-Kubi-project). If you haven't run the script there is an example config file `config.example.yml` for you to copy, rename to `config.yml` and update manually.
 
->**Note**: We **highly** recommend you use the Kubi script rather than setting up manually as it will help you avoid potential errors.
+:::caution
+We **highly** recommend you use the Kubi script rather than setting up manually as it will help you avoid potential errors.
+:::
 
-### Example `config.yml` file
+## Example `config.yml` file
 
 ```yml
 # The API password generated from a Private App
 password: 51f8c8de49ee28…
 
-# The myshopify.com URL to your Shopify store
+# The .myshopify.com URL to your Shopify store
 store: yourshopname…
 
 # The ID of the theme you wish to upload files to
@@ -24,15 +26,18 @@ theme_id: 12345678…
 ignore_files:
   - config/settings_data.json
   - locales/*
+  - templates/*.json
 ```
 
-### Setting store
+## Setting store
 
 This refers to the URL of your Shopify store, e.g. store-name.myshopify.com.
 
->**Note**: the `https://` protocol is not included and neither is the trailing slash.
+:::info
+the `https://` protocol is not included and neither is the trailing slash.
+:::
 
-### Setting password
+## Setting password
 
 Create a new private app by navigating to your store’s private apps page (https://{store-name}.myshopify.com/admin/apps/private), giving the private app a name and setting the **Theme templates and theme assets** to “Read and write”.
 
@@ -42,7 +47,7 @@ Hit the “Save” button, edit the new private app and click “Show” to view
 
 ![store-api-password](https://res.cloudinary.com/kubix-media-ltd/image/upload/c_scale,dpr_auto,f_auto,fl_progressive,w_auto/Kubi%20Docs/store-api-password.jpg)
 
-### Setting theme ID
+## Setting theme ID
 
 You can view a full list of all available theme IDs for your store by navigating to `https://{store-name}.myshopify.com/admin/themes.xml` or `https://{store-name}.myshopify.com/admin/themes.json`.
 
@@ -50,9 +55,24 @@ You can view a full list of all available theme IDs for your store by navigating
 
 Each theme entry will have an `id` tag. Set the config `theme_id` to the theme ID you want to deploy to.
 
->**Note**: When you deploy your theme, Kubi will overwrite the existing remote code associated with the `theme_id` you defined with your local project’s code, which you may not want. To avoid this, navigate to https://{store-name}.myshopify.com/admin/themes and duplicate an existing theme ID to work from. To not overwrite files (even changes ones) you can deploy in safe mode.
+:::info
+When you deploy your theme, Kubi will overwrite the existing remote code associated with the `theme_id` you defined with your local project’s code, which you may not want. To avoid this, navigate to https://{store-name}.myshopify.com/admin/themes and duplicate an existing theme ID to work from. To not overwrite files (even changes ones) you can deploy in safe mode.
+:::
 
-### Setting ignore_files
+## Working with OS2.0 .JSON templates
+When Shopify released OS2.0, theme templates changed. Previously, templates held the page's content. Now, OS2.0 utilises JSON templates which cannot accept Liquid.
+JSON templates are optional and on a need-to-use basis.
+Kubi is fully compatible with the new JSON templates, it can detect the difference between a Liquid template and a JSON template and perform the appropriate actions.
+
+:::info
+By default, JSON template ignores are commented out via the config's `ignore_files` option (See below). To work with JSON templates, simply uncomment the line before starting Kubi.
+:::
+
+:::caution
+Unlike OS1.0 sections, OS2.0 sections save their setting data directly to the JSON templates. It's important that after you've created the initial JSON template, you again `ignore` the JSON templates line in `ignore_files`. Otherwise Customiser settings made after the previous save of the JSON file will be overwritten by any new file changes.
+:::
+
+## Setting ignore_files
 
 This is the only optional setting in the `config.yml` file and it enables you to ignore certain files from being deployed to your Shopify store. One example would be to ignore the `settings_data.json` file to avoid overwriting your theme’s section settings every time you deploy your theme.
 
@@ -63,11 +83,13 @@ ignore_files:
   - config/settings_data.json
 ```
 
-### Adding alternative themes/stores
+## Adding alternative themes/stores
 
 Kubi allows you to define multiple environments for deployment. To seperate the multiple environments the API credentials need to be wrapped in an environment keyword. By default Kubi uses **development, staging and production**.
 
->**Note**: Staging is used for when the project is finished in development and needs signing off by the client. It is also aim at testing as the staging environment should minic the production as close as possible. By havng a staging env it allows changes or bugs to be found and fixed before effectting the users of the live store.
+:::info
+Staging is used for when the project is finished in development and needs signing off by the client. It is also aim at testing as the staging environment should minic the production as close as possible. By havng a staging env it allows changes or bugs to be found and fixed before effectting the users of the live store.
+:::
 
 ```yml
 # Set the development store credentials.
@@ -78,6 +100,7 @@ development:
   ignore_files:
     - config/settings_data.json
     - locales/*
+    # - templates/*.json
 
 # Be careful when using the below environment as it's connected directly to the live store but not live theme.
 staging:
