@@ -26,14 +26,14 @@ body {
 ## Example SCSS file with liquid interpolated
 
 ```scss
-a{
+a {
   color: #{'{{ settings.link-color }}'};
 }
 
 //  Reuasble liquid:
 $myVar: #{'{{ settings.font-family }}'};
 
-h1{
+h1 {
   font-family: $myVar;
 }
 
@@ -59,3 +59,34 @@ When using Liquid outside a SCSS statement we would need to write `/* {{ setting
 
 /* {% if settings.custom-css %}{{ settings.custom-css | prepend: '*\/' | append: '\/*' | remove: '\' }}{% endif %} */
 ```
+## CSS Modules
+Kubi supports the creation of CSS modules. Modules are created in the `src/css-modules` folder as single `*.scss` files. Upon saving, they are compiled and pushed to the theme's `assets` folder.
+CSS Modules are intended to be small, single-use stylesheets for either optional components or areas lower down the page. The idea is that it keeps the primary `kubix.css` file free from bloat that may not be being used. These individual files are then directly linked to inside of the section/snippet where they are used.
+
+For example:
+The header is shown at the top of every page, so it remains in the `kubix.scss` stylesheet. However, a Slideshow section may only be used on the homepage (or not at all!) and so you create a new CSS Module stylesheet for that section, you can then include that file as normal in the section file:
+
+```liquid title="slideshow-section.liquid"
+{{ 'slideshow.css' | asset_url | stylesheet_tag }}
+
+<div class="slideshow"></div>
+```
+
+### Using CSS Modules with performance in mind
+When using CSS Modules, you should bare in mind where they're going to be loaded. If they are important to the user's first view of a page (for example: a collection header) then they should be preloaded using the available Liquid property:
+
+```liquid
+{{ 'collection-header.css' | asset_url | stylesheet_tag: preload: true }}
+```
+
+If they are used further down the page, such as the footer, then you should use a simple JavaScript trick to "lazyload" the file.
+
+```html
+<link rel="stylesheet" href="{{ 'footer.css' | asset_url }}" media="print" onload="this.media='all'">
+```
+
+After the page has loaded, JavaScript will replace the link's `media` attribute with `all` so that it loads and renders on the screen.
+
+:::caution
+Only use this trick for elements that aren't visible on initial page load, otherwise the user will see a Flash of Unstyled Content (FOUC)
+:::

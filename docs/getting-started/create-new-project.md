@@ -56,7 +56,9 @@ To run the terminal command once your project has finished cloning, migrate into
 
 To have the script fetch, merge and install, the option `i or install` can be added. Passing the install variable to the script will imediatly run the **kubimini.sh** script after the merge is complete.
 
->**Note**: If your repo already has content or previous Kubi files you may have several conflicts which **will** need to be fixed running the **kubimini.sh** script*.
+:::info
+If your repo already has content or previous Kubi files you may have several conflicts which **will** need to be fixed running the **kubimini.sh** script*.
+:::
 
 ```
 kubi i
@@ -82,4 +84,4 @@ sh kubimini.sh
 
 You have now successfully set up a Shopify Kubi project. Bravo!
 
-To find out more about upstreams, see the Github tutorial [https://help.github.com/articles/fork-a-repo/].
+To find out more about upstreams, see the [Github tutorial](https://help.github.com/articles/fork-a-repo/).

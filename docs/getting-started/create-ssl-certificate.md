@@ -8,7 +8,9 @@ Kubi uses [BrowserSync](https://browsersync.io/) to provide live reloading of th
 
 <img src="https://res.cloudinary.com/kubix-media-ltd/image/upload/c_scale,dpr_auto,f_auto,fl_progressive,w_auto/Kubi%20Docs/sslerror.png" alt="An example of Chrome warning you of an untrusted https certificate"/><br/>
 
->**Note**: If you have run the [Kubi script](https://github.com/kubixmedia/kubi/wiki/2.Create-a-new-Kubi-project) the SSL key and cert files will have already been created for you and added to the `gulp.config.yml` file.
+:::info
+If you have run the [Kubi script](https://github.com/kubixmedia/kubi/wiki/2.Create-a-new-Kubi-project) the SSL key and cert files will have already been created for you and added to the `gulp.config.yml` file.
+:::
 
 1. Run the following commands to install [mkcert](https://github.com/FiloSottile/mkcert). See the [installation docs](https://github.com/FiloSottile/mkcert#installation) for more details.
 
@@ -88,7 +90,7 @@ browsersync:
 
 5. You now have successfully created a local, self-signed SSL certificate for developing with Kubi!
 
-### Common mistakes
+## Common mistakes
 
 Even after performing the above steps, you might encounter the following errors and warnings when using Kubi:
 

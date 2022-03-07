@@ -33,7 +33,9 @@ project:
   use: yarn # yarn or npm
 ```
 
->**Note**: The `kubi.config.yml` will only be created once the Kubi script has completed the project setup. The purpose of this config file is to save the answers provided to `kubimini.sh` so that if the script is re-run then the user doesn't have to fill out all the same answers again.
+:::info
+The `kubi.config.yml` will only be created once the Kubi script has completed the project setup. The purpose of this config file is to save the answers provided to `kubimini.sh` so that if the script is re-run then the user doesn't have to fill out all the same answers again.
+:::
 
 ## Editing gulp.config.yml
 
@@ -95,9 +97,13 @@ browsersync:
     scroll: false
 ```
 
->**Note**: The `gulp.config.yml` file is the primary file for configuring Kubi as it was created to the backbone of Kubi development with Shopify themes.
+:::info
+The `gulp.config.yml` file is the primary file for configuring Kubi as it was created to be the backbone of Kubi development with Shopify themes.
+:::
 
->**Warning**: To avoid errors, keep Kubi functional and updatable **do not** edit the `gulpfile.babel.js` file directly!
+:::danger
+To avoid errors, keep Kubi functional and updatable **do not** edit the `gulpfile.babel.js` file directly!
+:::
 
 ## Editing webpack.config.js
 
