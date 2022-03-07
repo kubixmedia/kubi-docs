@@ -77,7 +77,7 @@ module.exports = {
             },
             {
               label: 'GitHub',
-              href: 'https://github.com/facebook/docusaurus',
+              href: 'https://github.com/kubixmedia/kubi',
             },
           ],
         },
@@ -97,14 +97,14 @@ module.exports = {
           sidebarPath: require.resolve('./sidebars.js'),
           // Please change this to your repo.
           editUrl:
-            'https://github.com/facebook/docusaurus/edit/master/website/',
+            'https://github.com/kubixmedia/kubi-docs/edit/master/',
           remarkPlugins: [[require('@docusaurus/remark-plugin-npm2yarn'), {sync: true}]],
         },
         blog: {
           showReadingTime: true,
           // Please change this to your repo.
           editUrl:
-            'https://github.com/facebook/docusaurus/edit/master/website/blog/',
+            'https://github.com/kubixmedia/kubi-docs/edit/master/blog/',
           remarkPlugins: [[require('@docusaurus/remark-plugin-npm2yarn'), {sync: true}]],
         },
         theme: {

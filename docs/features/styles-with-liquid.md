@@ -23,7 +23,7 @@ body {
 }
 ```
 
-## Example SCSS file with liquid interpolated
+## Liquid Interpolation
 
 ```scss
 a {
