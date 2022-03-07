@@ -29,6 +29,11 @@ ignore_files:
   - templates/*.json
 ```
 
+:::caution
+Private apps are no longer used for the purposes of theme development. Instead use Shopify's [ThemeKit Access](https://apps.shopify.com/theme-kit-access) app to generate a unique API key.
+
+Note: this API key is unique to you, other developers must create their own key.
+:::
 ## Setting store
 
 This refers to the URL of your Shopify store, e.g. store-name.myshopify.com.
@@ -59,7 +64,7 @@ Each theme entry will have an `id` tag. Set the config `theme_id` to the theme I
 When you deploy your theme, Kubi will overwrite the existing remote code associated with the `theme_id` you defined with your local project’s code, which you may not want. To avoid this, navigate to https://{store-name}.myshopify.com/admin/themes and duplicate an existing theme ID to work from. To not overwrite files (even changes ones) you can deploy in safe mode.
 :::
 
-## Working with OS2.0 .JSON templates
+## Working with OS2.0 JSON templates
 When Shopify released OS2.0, theme templates changed. Previously, templates held the page's content. Now, OS2.0 utilises JSON templates which cannot accept Liquid.
 JSON templates are optional and on a need-to-use basis.
 Kubi is fully compatible with the new JSON templates, it can detect the difference between a Liquid template and a JSON template and perform the appropriate actions.
@@ -72,7 +77,7 @@ By default, JSON template ignores are commented out via the config's `ignore_fil
 Unlike OS1.0 sections, OS2.0 sections save their setting data directly to the JSON templates. It's important that after you've created the initial JSON template, you again `ignore` the JSON templates line in `ignore_files`. Otherwise Customiser settings made after the previous save of the JSON file will be overwritten by any new file changes.
 :::
 
-## Setting ignore_files
+## Setting `ignore_files`
 
 This is the only optional setting in the `config.yml` file and it enables you to ignore certain files from being deployed to your Shopify store. One example would be to ignore the `settings_data.json` file to avoid overwriting your theme’s section settings every time you deploy your theme.
 

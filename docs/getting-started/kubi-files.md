@@ -13,67 +13,58 @@ A Kubi project consists of the following file structure:
 ```tree
 .
 ├── .babelrc
-├── .editorconfig
 ├── .eslintignore
-├── .eslintrc
-├── .gitattributes
-├── .gitignore
 ├── .stylelintignore
 ├── .stylelintrc
+├── .theme-check.yml
+├── .travis.yml
+├── CHANGELOG.md
 ├── README.md
+├── backups
 ├── config
-│   ├── gulp
-│   │   └── functions.js
-│   ├── gulp.config.yml
-│   ├── kubi
-│   │   ├── helpers
-│   │   │   └── functions.sh
-│   │   └── modules
-│   │       ├── help.sh
-│   │       ├── setup.sh
-│   │       └── troubleshoot.sh
-│   ├── kubi.config.yml
-│   ├── modernizr-config.yml
-│   ├── theme.update
-│   └── webpack.config.js
+│  ├── cloudinarylazyresponsive.js
+│  ├── gulp
+│  │  └── functions.js
+│  ├── gulp.config.yml
+│  ├── kubi
+│  │  ├── helpers
+│  │  │  └── functions.sh
+│  │  └── modules
+│  │      ├── help.sh
+│  │      ├── setup.sh
+│  │      └── troubleshoot.sh
+│  ├── modernizr-config.yml
+│  ├── theme.update
+│  └── webpack.config.js
 ├── config.example.yml
 ├── cypress
-│   ├── integration
-│   │   └── landing_page.js
-│   ├── plugins
-│   │   └── index.js
-│   └── support
-│       ├── commands.js
-│       └── index.js
+│  ├── integration
+│  │  └── landing_page.js
+│  ├── plugins
+│  │  └── index.js
+│  └── support
+│      ├── commands.js
+│      └── index.js
 ├── cypress.json
 ├── gulpfile.babel.js
 ├── kubimini.sh
 ├── package.json
 ├── src
-│   ├── images
-│   │   ├── favicons
-│   │   └── spritesheets
-│   │       ├── non-svgs
-│   │       └── svgs
-│   ├── js
-│   │   ├── kubix.js
-│   │   └── modules
-│   │       └── helpers.js
-│   ├── styles
-│   │   ├── critical.scss
-│   │   ├── fontface.scss
-│   │   ├── helpers
-│   │   │   ├── _functions.scss
-│   │   │   ├── _mixins.scss
-│   │   │   └── _variables.scss
-│   │   └── kubix.scss
-│   ├── theme
-│   │   └── snippets
-│   │       └── svg-sprite.liquid
-│   └── vendors
-│       └── cloudinarylazyresponsive.js
-├── tsconfig.json
-└── yarn.lock
+│  ├── css-modules
+│  ├── images
+│  │  └── spritesheets
+│  │      └── svgs
+│  ├── js
+│  ├── styles
+│  ├── theme
+│  └── vendors
+│      ├── @shopify
+│      │  ├── theme-lint
+│      │  ├── theme-sections
+│      │  └── themekit
+│      ├── airbnb-browser-shims
+│      └── fg-loadcss
+└── tsconfig.json
 ```
 
 ### 1. Babel config
