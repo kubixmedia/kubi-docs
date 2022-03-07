@@ -4,8 +4,8 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 /** @type {import('@docusaurus/types').DocusaurusConfig} */
 module.exports = {
   title: 'Kubi Docs',
-  tagline: 'Dinosaurs are cool',
-  url: 'https://your-docusaurus-test-site.com',
+  tagline: 'How we do the things that we do.',
+  url: 'https://hopeful-leakey-692933.netlify.app',
   baseUrl: '/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
@@ -13,6 +13,11 @@ module.exports = {
   organizationName: 'KubixMedia', // Usually your GitHub org/user name.
   projectName: 'Kubi', // Usually your repo name.
   themeConfig: {
+    colorMode: {
+      defaultMode: 'light',
+      respectPrefersColorScheme: true,
+    },
+    image: 'img/Kubi_Banner.png',
     navbar: {
       title: 'Kubi Docs',
       logo: {
@@ -82,7 +87,7 @@ module.exports = {
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} Kubix Media Ltd. Built with Docusaurus.`,
+      copyright: `Copyright © ${new Date().getFullYear()} Kubix Media Ltd.`,
     },
     prism: {
       theme: lightCodeTheme,
