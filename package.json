@@ -2,6 +2,11 @@
   "name": "kubi-docs",
   "version": "0.0.0",
   "private": true,
+  {
+    "engines": {
+      "node": ">=14"
+    }
+  },
   "scripts": {
     "docusaurus": "docusaurus",
     "start": "docusaurus start",
