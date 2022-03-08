@@ -13,6 +13,9 @@ module.exports = {
   organizationName: 'KubixMedia', // Usually your GitHub org/user name.
   projectName: 'Kubi', // Usually your repo name.
   themeConfig: {
+    prism: {
+      additionalLanguages: ['liquid'],
+    },
     colorMode: {
       defaultMode: 'light',
       respectPrefersColorScheme: true,
