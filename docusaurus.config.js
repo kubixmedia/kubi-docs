@@ -39,7 +39,6 @@ module.exports = {
           position: 'right',
           label: 'Changelog',
         },
-        {to: '/blog', label: 'Blog', position: 'left'},
         {
           href: 'https://github.com/kubixmedia/kubi',
           label: 'GitHub',
@@ -80,10 +79,6 @@ module.exports = {
           title: 'More',
           items: [
             {
-              label: 'Blog',
-              to: '/blog',
-            },
-            {
               label: 'GitHub',
               href: 'https://github.com/kubixmedia/kubi',
             },
@@ -108,13 +103,7 @@ module.exports = {
             'https://github.com/kubixmedia/kubi-docs/edit/master/',
           remarkPlugins: [[require('@docusaurus/remark-plugin-npm2yarn'), {sync: true}]],
         },
-        blog: {
-          showReadingTime: true,
-          // Please change this to your repo.
-          editUrl:
-            'https://github.com/kubixmedia/kubi-docs/edit/master/blog/',
-          remarkPlugins: [[require('@docusaurus/remark-plugin-npm2yarn'), {sync: true}]],
-        },
+        blog: false,
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
         },
