@@ -29,7 +29,6 @@ Kubi not only provides a more customisable Shopify development solution but also
 -   Git branch setup
 -   Git watching and auto commiting
 -   SVG sprite creation
--   Cloudinary upload intergration
 -   Critical CSS creation
 -   File syncing to store
 

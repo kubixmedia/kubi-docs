@@ -22,7 +22,6 @@ A Kubi project consists of the following file structure:
 ├── README.md
 ├── backups
 ├── config
-│  ├── cloudinarylazyresponsive.js
 │  ├── gulp
 │  │  └── functions.js
 │  ├── gulp.config.yml

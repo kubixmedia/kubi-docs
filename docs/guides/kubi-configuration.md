@@ -150,7 +150,6 @@ module.exports = {
     new webpack.ProvidePlugin({
       $: 'jquery',
       jQuery: 'jquery',
-      cloudinary: 'cloudinary-core',
       sections: '@shopify/theme-sections'
     })
   ]

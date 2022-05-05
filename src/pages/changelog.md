@@ -4,6 +4,14 @@ sidebar_position: 10
 
 # Changelog
 
+## Kubi 2.9.1 05/05/2022
+
+- Fixed: Downgraded BrowserSync to 2.23.6 due to [a bug preventing the UI from loading](https://github.com/BrowserSync/browser-sync/issues/1885).
+- Fixed: Typo in `gulp.config.yml` that prevented config files being watched by Kubi.
+- Feature: Added a `theme-check` GitHub Workflow Action.
+  - This action will produce any `theme-check` lint errors that may exist within a theme. It will diff check your code to the code on the `main` branch so that errors from the original theme don't flood the screen. [Read more](https://github.com/Shopify/theme-check-action#about-this-repo).
+- Removed: The Cloudinary integration has been removed since it was unused.
+
 ## Kubi 2.8 16/07/2012
 
 ### Major Update
