@@ -4,10 +4,6 @@ sidebar_position: 1
 
 # Welcome
 
-[![Codacy Badge](https://app.codacy.com/project/badge/Grade/cd4aa85fcd6b41cdb88b5c80fd61a5c0)](https://www.codacy.com?utm_source=github.com&utm_medium=referral&utm_content=kubixmedia/kubi&utm_campaign=Badge_Grade)
-[![](https://img.shields.io/maintenance/yes/2021?style=for-the-badge)](https://github.com/kubixmedia)
-[![NPM License](https://img.shields.io/npm/l/all-contributors.svg?style=for-the-badge)](https://github.com/kubixmedia/kubi/master/LICENSE)
-
 Shopify Kubi is a command line tool for creating a development environment for Shopify. It is designed to assist your development workflow and speed up the process of developing, testing, and deploying themes to Shopify. It has taken inspiration from Shopify Slate but has applied more team related functions and utlises the power of Gulp in combination with Webpack!
 
 Kubi not only provides a more customisable Shopify development solution but also allows for better compiling, css cleaning, optimising and code standards checking. The project uses a number of different packages to achieve this, such as Node Themekit, Styleling, Prettier and eslinting. Kubi also gives more customisation options in the style of coding you may want to use, to develop for Shopify. It's list of features are:
