@@ -97,10 +97,10 @@ module.exports = {
       '@docusaurus/preset-classic',
       {
         docs: {
+          // routeBasePath: '/',
           sidebarPath: require.resolve('./sidebars.js'),
           // Please change this to your repo.
-          editUrl:
-            'https://github.com/kubixmedia/kubi-docs/edit/master/',
+          editUrl: 'https://github.com/kubixmedia/kubi-docs/edit/master/',
           remarkPlugins: [[require('@docusaurus/remark-plugin-npm2yarn'), {sync: true}]],
         },
         blog: false,
@@ -128,7 +128,7 @@ module.exports = {
           {
             tagName: 'link',
             rel: 'icon',
-            href: '/img/196.png',
+            href: '/img/KubiIcon.png',
           },
           {
             tagName: 'link',

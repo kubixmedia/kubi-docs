@@ -2,7 +2,11 @@
 sidebar_position: 1
 ---
 
+import myImageUrl from '../static/img/Kubi_Banner.png';
+
 # Welcome
+
+<img src={myImageUrl} alt="Kubi banner" loading="eager" />
 
 Shopify Kubi is a command line tool for creating a development environment for Shopify. It is designed to assist your development workflow and speed up the process of developing, testing, and deploying themes to Shopify. It has taken inspiration from Shopify Slate but has applied more team related functions and utlises the power of Gulp in combination with Webpack!
 
