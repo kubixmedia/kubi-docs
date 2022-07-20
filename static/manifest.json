@@ -4,7 +4,7 @@
   "description": "A documentation website for Kubi",
   "lang": "en-GB",
   "scope": "./",
-  "start_url": "./index.html",
+  "start_url": "./",
   "display": "standalone",
   "orientation": "portrait-primary",
   "theme_color": "#DD3E7D",
