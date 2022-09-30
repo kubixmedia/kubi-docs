@@ -305,6 +305,6 @@ Array.from(document.styleSheets).filter((sheet) => { try { sheet.cssRules; retur
 The below snippet is actually a live example of this website's above the folder CSS. Cool right?!
 :::
 
-<BrowserOnly fallback={<div>Loading...</div>}>
-  <CriticalExample />
+<BrowserOnly>
+  {() => <CriticalExample />}
 </BrowserOnly>
