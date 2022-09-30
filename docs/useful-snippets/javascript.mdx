@@ -3,7 +3,6 @@ sidebar_position: 3
 title: JavaScript Snippets
 ---
 
-import BrowserOnly from '@docusaurus/BrowserOnly';
 import CriticalExample from '@site/src/components/CriticalExample';
 
 ## Shopify CDN Image URL Generator
@@ -305,6 +304,4 @@ Array.from(document.styleSheets).filter((sheet) => { try { sheet.cssRules; retur
 The below snippet is actually a live example of this website's above the folder CSS. Cool right?!
 :::
 
-<BrowserOnly>
-  {() => <CriticalExample />}
-</BrowserOnly>
+<CriticalExample />
