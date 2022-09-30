@@ -3,14 +3,19 @@ sidebar_position: 3
 title: JavaScript Snippets
 ---
 
+import CriticalExample from '@site/src/components/CriticalExample';
+
 ## Shopify CDN Image URL Generator
+
 These functions use JavaScript to take a raw image URL and create the requested size URL with several parameters available. It exactly matches Liquid's `image_url` options so read Shopify's documentation on [image_url](https://shopify.dev/api/liquid/filters/url-filters#image_url) for more information.
 
 :::info
 Where you see `export const...`, these are exported functions. These typically go in a `helpers.js` file and then imported wherever you need them with the following:
+
 ```js
 import {someFunctionConst} from 'helpers.js';
 ```
+
 :::
 
 ```js
@@ -77,6 +82,7 @@ export const getSizedImageUrl = (src, params = {}) => {
 ```
 
 ## Native Lazyloading Transitions
+
 This is a pretty powerful function. In the past, when lazyloading was done via a `lazyload.js` package, the package would typically add a new class to an image once it had been loaded, such as `.lazyload .lazyloaded` to create an animation effect (usually a fade-in transition). With the introduction of native lazyloading, these classes no longer exist, and so a new trick is needed.
 This function finds lazyloaded images with a class wrapper and adds it's own class.
 
@@ -188,6 +194,7 @@ lazyImages.forEach(img => {observer.observe(img)});
 ```
 
 ## Serialise Form Data
+
 Useful for when you want to submit forms via Ajax. Typically used for product forms. It takes the selected form values (variants, quantity, `line_item` properties etc) and serialises it to submit it.
 
 Behaves similarly to jQuery's [.serialize()](https://api.jquery.com/serialize/) function.
@@ -247,6 +254,7 @@ function getQueryVariable(string, variable) {
 ```
 
 ## Browser Detection
+
 Detects which browser the user is using
 
 ```js
@@ -281,3 +289,19 @@ if (browser.mobile) {
 ```js
 var browser=function(){"use strict";var e={name:null,version:null,os:null,osVersion:null,touch:null,mobile:null,_canUse:null,canUse:function(n){e._canUse||(e._canUse=document.createElement("div"));var o=e._canUse.style,r=n.charAt(0).toUpperCase()+n.slice(1);return n in o||"Moz"+r in o||"Webkit"+r in o||"O"+r in o||"ms"+r in o},init:function(){var n,o,r,i,t=navigator.userAgent;for(n="other",o=0,r=[["firefox",/Firefox\/([0-9\.]+)/],["bb",/BlackBerry.+Version\/([0-9\.]+)/],["bb",/BB[0-9]+.+Version\/([0-9\.]+)/],["opera",/OPR\/([0-9\.]+)/],["opera",/Opera\/([0-9\.]+)/],["edge",/Edge\/([0-9\.]+)/],["safari",/Version\/([0-9\.]+).+Safari/],["chrome",/Chrome\/([0-9\.]+)/],["ie",/MSIE ([0-9]+)/],["ie",/Trident\/.+rv:([0-9]+)/]],i=0;i<r.length;i++)if(t.match(r[i][1])){n=r[i][0],o=parseFloat(RegExp.$1);break}for(e.name=n,e.version=o,n="other",o=0,r=[["ios",/([0-9_]+) like Mac OS X/,function(e){return e.replace("_",".").replace("_","")}],["ios",/CPU like Mac OS X/,function(e){return 0}],["wp",/Windows Phone ([0-9\.]+)/,null],["android",/Android ([0-9\.]+)/,null],["mac",/Macintosh.+Mac OS X ([0-9_]+)/,function(e){return e.replace("_",".").replace("_","")}],["windows",/Windows NT ([0-9\.]+)/,null],["bb",/BlackBerry.+Version\/([0-9\.]+)/,null],["bb",/BB[0-9]+.+Version\/([0-9\.]+)/,null],["linux",/Linux/,null],["bsd",/BSD/,null],["unix",/X11/,null]],i=0;i<r.length;i++)if(t.match(r[i][1])){n=r[i][0],o=parseFloat(r[i][2]?r[i][2](RegExp.$1):RegExp.$1);break}e.os=n,e.osVersion=o,e.touch="wp"==e.os?navigator.msMaxTouchPoints>0:!!("ontouchstart"in window),e.mobile="wp"==e.os||"android"==e.os||"ios"==e.os||"bb"==e.os}};return e.init(),e}();!function(e,n){"function"==typeof define&&define.amd?define([],n):"object"==typeof exports?module.exports=n():e.browser=n()}(this,function(){return browser});
 ```
+
+## Above-the-Fold CSS in One Line Of Code
+
+_Source: [Jones - Medium](https://words.getsubsecond.com/above-the-fold-css-in-one-line-of-code-aa828899a37c)_
+
+Paste this line of code into the Chrome console and it will output all of the Above-the-Fold critical CSS for the current webpage.
+
+```js
+Array.from(document.styleSheets).filter((sheet) => { try { sheet.cssRules; return true; } catch (err) { console.log(`Due to CORS issues, this script can't access "${sheet.href}"`); return false; }}).map((sheet) => Array.from(sheet.cssRules).map((rule) => rule.type === rule.FONT_FACE_RULE ? rule.cssText : rule.type === rule.STYLE_RULE ? Array.from(document.querySelectorAll(rule.selectorText)).some((node) => node.getBoundingClientRect().top < window.innerHeight && window.getComputedStyle(node).display !== 'none') ? rule.cssText : null : rule.type === rule.MEDIA_RULE ? `@media ${rule.conditionText} {${Array.from(rule.cssRules).map((mediaRule) => mediaRule.type === mediaRule.FONT_FACE_RULE ? mediaRule.cssText : mediaRule.type === mediaRule.STYLE_RULE ? Array.from(document.querySelectorAll(mediaRule.selectorText)).some((node) => node.getBoundingClientRect().top < window.innerHeight && window.getComputedStyle(node).display !== 'none') ? mediaRule.cssText : null : null).filter((mediaRule) => mediaRule != null).join(' ')}}` : null)).flat().filter((rule) => rule != null && !new RegExp(/^@media.*{}$/).test(rule)).join(' ');
+```
+
+:::info
+The below snippet is actually a live example of this website's above the folder CSS. Cool right?!
+:::
+
+<CriticalExample />

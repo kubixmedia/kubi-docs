@@ -1,8 +1,31 @@
 ---
 sidebar_position: 5
 ---
-
 # Create a new Kubi Project
+
+## The simple way
+
+Follow the below guide to set up Kubi without dealing with your bash profiles.
+
+1. Create Git repo and clone the empty repo to your machine.
+2. Clone the Kubi repo into your new folder.
+3. Run the following commands:
+    1. `git remote add upstream git@github.com:kubixmedia/kubi.git`
+    2. `git fetch upstream`
+    3. `git merge upstream/master --allow-unrelated-histories`
+4. After you’ve successfully pulled Kubi into your local folder, push the changes to Git. Commit message “Added Kubi” or similar.
+5. Run the `yarn` command or `npm install` if using NPM to install packages.
+6. Configure your Shopify store’s details in the config.yml file.
+7. Run `yarn download` to download the configured theme.
+    1. Optional: Run `gulp` to test the configuration to ensure it works okay.
+8. Push new files to Git with commit message “Theme init” or similar.
+9. Checkout a new development branch and push this to Git.
+
+:::warning
+After first cloning Kubi, do not rename the `config.example.yml` file without first duplicating the file. This is because `config.yml` is ignored by Git, so the next person to clone your repo won't get this file.
+:::
+
+## The advanced way
 
 To start using Kubi First add the following to your `~/.bash_profile` or your desired shell file:
 
@@ -48,7 +71,7 @@ This function will allow you to call Kubi within the terminal in any directory a
 
 Use the following to clone your newly created repo to your chosen directory. The cloning shoudn&rsquo;t take long and when finsihed you will be able to run the Kubi terminal command.
 
-```
+```bash
 git clone git@github.com:kubixmedia/{your-repo}.git
 ```
 
@@ -60,17 +83,13 @@ To have the script fetch, merge and install, the option `i or install` can be ad
 If your repo already has content or previous Kubi files you may have several conflicts which **will** need to be fixed running the **kubimini.sh** script*.
 :::
 
-```
-kubi i
-```
-_or_
-```
+```bash
 kubi install
 ```
 
 When passing the flag option, this allows you to chose what branch within the Kubi repo to be merged with **your** current project. By default the master branch will be merged. This is the recommended branch and we **only** advise merging a different branch on either the recommendation of the Kubi author or if testing new Kubi features.
 
-```
+```js
 kubi --development
 ```
 
@@ -78,7 +97,7 @@ Once Kubi is merged and all the conflicts (if any) have been resolved you can no
 
 To run the script use the following command. After you have run the command follow the instructions in the terminal:
 
-```
+```js
 sh kubimini.sh
 ```
 
