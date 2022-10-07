@@ -1,0 +1,83 @@
+---
+sidebar_position: 1
+title: "Coding Standards"
+---
+
+At Kubix, we follow a specific set of guidelines to ensure our code is of the best possible quality and also ensure it's uniformity so developers can work with ease on new code.
+
+## Liquid
+
+...
+
+## CSS/SCSS
+
+Going forward, Kubix will be using the [BEM Methodology ~ naming convention](https://en.bem.info/methodology/naming-convention/) in our development process.
+
+The goal of implementing this is to make sure we have consistency across our dev team that will make it easier and more informative for each of us if/when we are needed to jump on exisiting projects.
+
+### Breakdown of how it works
+
+Take these CSS selector examples:
+
+- `.menuitemvisible`
+- `.menu-item-visible`
+- `.menuItemVisible`
+
+To understand the meaning of the first name, you need read through each word carefully.
+
+In the last two examples, the name is clearly divided into its parts.
+But none of these names helps us understand that `menu` is a **block**, `item` is an **element**, and `visible` is a **modifier**.
+
+The rules for naming BEM entities were developed in order to make entity names unambiguous and easy to understand.
+
+### Naming rules
+
+Example: `.block-name__elem-name_mod-name_mod-val`
+
+- Names are written in lowercase Latin letters.
+- Words are separated by a hyphen (-).
+- The block name defines the [namespace](https://en.wikipedia.org/wiki/Namespace) for its elements and modifiers.
+- The element name is separated from the block name by a double underscore (__).
+- The modifier name is separated from the block or element name by a single underscore (_).
+- The modifier value is separated from the modifier name by a single underscore (_).
+- For boolean modifiers, the value is not included in the name
+
+### Naming style
+
+The style we will be using at Kubix will be the **Two Dashes style**
+
+Example: `.block-name__elem-name--mod-name--mod-val`
+
+- Names are written in lowercase Latin letters.
+- Words within the names of BEM entities are separated by a hyphen (-).
+- The element name is separated from the block name by a double underscore (__).
+- Boolean modifiers are separated from the name of the block or element by a double hyphen (--).
+- The value of a modifier is separated from its name by a double hyphen (--).
+
+#### Example
+
+Let's take a slideshow as an example.
+The slideshow has the parent container, a slide title and a slide button.
+
+We would structure it as something like:
+
+```html
+<section class="slideshow slideshow--full-width">
+  <div class="slide">
+    <h1 class="slide__title slide__title--bold">Slideshow</h1>
+
+    <a href="#" class="slide__button">Button</a>
+  </div>
+
+  <nav class="slideshow__navigation">
+    <button class="slideshow__navigation-button slideshow__navigation-button--left">Preview slide</button>
+    <button class="slideshow__navigation-button slideshow__navigation-button--right">Next slide</button>
+  </nav>
+</section>
+```
+
+In this example, `.slideshow` is a **block**, but it has a modifier class `.slideshow--full-width` to indicate that full-width isn't it's default state, but it's modified state.
+
+Inside of that, we have `.slide` which is also a **block**, whilst each child of a block should generally become the **element**, it's not always required if that group could also be considered a **block** separately from the parent, so instead of `.slideshow__slide`, which is fully acceptable, we can narrow it down if needed to just `.slide`.
+
+Because the slide's title and button are now children of a new **block**, the class names inherit their structure from their parent, in this case it's `.slide__title` and `.slide__button`. `.slide__title` also has it's modifier class to make it bold.
