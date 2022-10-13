@@ -9,7 +9,7 @@ To improve our development workflows, we've devised a new way of working with Gi
 These won't simply be recommendations or expectations, these will be enforced and held up.
 
 With these new guidelines, we'll fully incorporate Git branches and Workflow actions to ensure only good quality code is produced and used.
-s
+
 From now, the process of completing a task/project will be as follows:
 
 1. From the `development` branch, create a new branch with the new naming convention as shown below.
