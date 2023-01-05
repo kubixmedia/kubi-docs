@@ -1,0 +1,81 @@
+---
+sidebar_position: 2
+title: "Git Practices"
+---
+
+We have overhauled our Git practices. These will become the new norm and tasks will be rejected if these processes aren't followed.
+
+These changes are being brought in to ensure we all follow the same process, so that everyone's code is aligned and written to the best possible standard.
+
+Below, the changes have been outlined, along with full instructions on how to make the most of these changes.
+
+## Commits, PRs and Reviews
+
+Going forward, this is the procedure for completing a development task.
+
+Github integration has been added to ClickUp so that all commits, PRs and branching goes through it.
+Inside of your ClickUp task page, you will now see a black Github icon in the top toolbar, next to the task title. This is your Git&hellip;*hub*, and will help guide you through the branching.
+
+![Github/ClickUp Integration](/img/git-practices/github-integration.png)
+
+### Summary of the new process
+
+You will create a new branch from the `development` branch
+
+* Create a new branch from the name given by the ClickUp task, this will look something like: `git checkout -b "CU-1x1t5ej_Liam-Merlyn"`
+  * If working from Bugherd:
+    * Branch off from the ClickUp branch and complete all tasks before merging back into ClickUp.
+* Complete the changes on that branch
+* Commit your changes
+* Create a [Pull Request](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request)
+* Request a review and select both Liam and Phil
+* When the changes are approved, reviewed, merge all of them back into `development` via the Pull Request.
+
+![Github processes](/img/git-practices/github-process.svg)
+
+## Configuring Github Integrations
+
+When setting up a project, you will first need to configure your Github integrations. This is required for all projects.
+
+### ClickUp
+
+![Clickup Github modal](/img/git-practices/clickup-modal.png)
+
+To begin, click the black Github button in the top of your Clickup task, this will open up the above shown modal.
+Now, click the blue "Create Branch" button. This will bring up another modal. In here, you can alter the branch name and then select the repo belonging to the project. Once selected, you now choose a Source branch. Usually, this will be `development`, but not always.
+
+Once everything is configured, click "Create new branch".
+
+ClickUp will then create the new branch on Github, it will also provide you a branch name for you to copy and paste into your terminal to create the branch locally.
+
+![Clickup Repo modal](/img/git-practices/clickup-branch.png)
+
+#### ClickUp Commit Syntax
+
+When pushing commits or PRs, you can automatically link it to the ClickUp task you're working on.
+
+To do this, simply include the task ID and it's status in the commit/PR message.
+
+For example: `#taskId[review] Updated footer content`.
+
+This will automatically attribute the event to the task, and update the status.
+
+You can (**_and should_**) read more about the integration on [ClickUp's support site](https://help.clickup.com/hc/en-us/articles/6305771568791-GitHub-integration#automatically-associating-github-activity-in-clickup-).
+
+### BugHerd
+
+For BugHerd, the process of setup is slightly different, but the fundamental concept remains the same: Commit your change, associate the commit to a BugHerd task and let it update itself.
+
+To begin, open a project in BugHerd and click the Cog icon on the left-hand sidebar. From this, click "commit hook", this will open a modal. Copy the hook URL for Github.
+
+Now open the project's repo in Github and click Settings in the top toolbar. Now, in the sidebar, click on Webhooks and click Add webhook.
+
+In the new form that loads, enter the webhook URL copied from BugHerd into the Payload URL field. For Content Type, select `application/json`. After that, click the blue Add webhook button.
+
+#### BugHerd commit syntax
+
+Similar to the ClickUp syntax, you use the commit message to attribute the commit to a task. Here, certain keywords will update the task's status. You can read more on [BugHerd's documentation](https://bugherd.elevio.help/en/articles/33869).
+
+In a nutshell, for your commit message, enter your usual message followed by `Fixes BH-xx`. "Fixes" automatically closes the task as complete. "BH-xx" is your task's ID number.
+
+For example: `Updated footer content. Fixes BH-17`. In this case, the task's ID is 17.

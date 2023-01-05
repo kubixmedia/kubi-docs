@@ -7,6 +7,7 @@ module.exports = {
   tagline: 'How we do the things that we do.',
   url: 'https://hopeful-leakey-692933.netlify.app',
   baseUrl: '/',
+  staticDirectories: ['static'],
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'https://res.cloudinary.com/kubix-media-ltd/image/upload/v1549548103/assets/icons/ms-icon-310x310.png',
