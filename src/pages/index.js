@@ -20,7 +20,7 @@ function HomepageHeader() {
           cloudName={siteConfig.customFields.cloud_name}
           uploadPreset={siteConfig.customFields.cloud_name}
         >
-          <Image publicId="kubi_logo_default_icon.png" dpr="auto" responsive width="auto" crop="scale" secure="true" loading="lazy"  />
+          <Image publicId="kubi_logo_default_icon.png" dpr="auto" responsive width="auto" crop="scale" secure="true" loading="lazy" alt="Kubi logo" />
         </CloudinaryContext>
         </div>
         <div>
