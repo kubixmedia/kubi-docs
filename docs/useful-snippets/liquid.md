@@ -124,3 +124,24 @@ Enable the option on development themes, leave disabled on live/production theme
 {% comment %} Others {% endcomment %}
 {{ 'image' | placeholder_svg_tag }}
 ```
+
+## Metafields
+
+### Forloops
+
+Unlike normal liquid arrays, which use ***.size***, metafields use ***.count***.
+```liquid 
+{{ product.metafields.namespace.key.count }}
+
+{% comment %} Returns: array size {% endcomment %}
+```
+
+
+Example of looping through metafields list.product_reference type.
+```liquid
+{%- for product in product.metafields.namespace.key.value -%}
+  {{ product.title }}
+{%- endfor -%}
+
+{% comment %} Returns: Loops through list reference type {% endcomment %}
+```
